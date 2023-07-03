@@ -1,6 +1,6 @@
 def lintChecks(){
     sh '''
-        echo Installing JSLint for ${COMPONENT}
+        echo Installing PYLint for ${COMPONENT}
         pip install pylint
         echo Installing lint checks done for the ${COMPONENT}
 
