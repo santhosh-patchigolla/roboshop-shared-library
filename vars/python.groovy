@@ -8,6 +8,7 @@ def lintChecks(){
 }
 
 
+
 def call (COMPONENT) {
     pipeline {
         agent { label 'work-station' }
@@ -26,6 +27,7 @@ def call (COMPONENT) {
                         sh "npm install"
                 }
             }                                              
+
         }
     }
 }

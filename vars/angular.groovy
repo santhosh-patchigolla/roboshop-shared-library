@@ -25,6 +25,7 @@ def call (COMPONENT) {
                         //sh "npm install"
                 }
             }                                              
+
         }
     }
 }
