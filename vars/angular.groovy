@@ -22,7 +22,7 @@ def call (COMPONENT) {
 
             stage('Code Quality') {
                 steps {
-                        sh "echo Code Quality"
+                        sh "echo Code Quality Analysis"
                 }
             }                                              
 
