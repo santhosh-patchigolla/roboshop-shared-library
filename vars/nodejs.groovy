@@ -16,11 +16,11 @@ def call () {
             stage ('Lint Check') {                     
                 steps {
                     script {
-                        nodejs.lintChecks()
+                        lintChecks()
                     }
                 }    
             }
-            
+
             stage('Code Compile') {
                 steps {
                         sh "npm install"
