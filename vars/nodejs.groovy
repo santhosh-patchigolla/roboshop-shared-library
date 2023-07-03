@@ -1,8 +1,8 @@
 def lintChecks(){
     sh '''
         echo Installing JSLint
-        sh "npm i jslint
-        sh "node_modules/jslint/bin/jslint.js server.js || true
+        npm i jslint
+        node_modules/jslint/bin/jslint.js server.js || true
 
     '''
 }
