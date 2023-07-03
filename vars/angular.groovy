@@ -22,7 +22,7 @@ def call (COMPONENT) {
 
             stage('Code Quality') {
                 steps {
-                        //sh "npm install"
+                        sh "echo Code Quality"
                 }
             }                                              
 
