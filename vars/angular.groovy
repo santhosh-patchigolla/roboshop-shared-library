@@ -20,7 +20,7 @@ def call (COMPONENT) {
                 }    
             }
 
-            stage('Code ComQualitypile') {
+            stage('Code Quality') {
                 steps {
                         //sh "npm install"
                 }
