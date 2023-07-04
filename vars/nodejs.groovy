@@ -4,18 +4,6 @@ def lintChecks(){
         npm i jslint
         node_modules/jslint/bin/jslint.js server.js || true
         echo Installing lint checks done for the ${COMPONENT}
-
-    '''
-}
-
-def sonarChecks(){
-    sh '''
-        echo Sonar Checks starts
-        sonar-scanner -Dsonar.sources=. -Dsonar.login=0d48104d8af75f393eec3c505f8f0cb743363849 -Dsonar.host.url=http://172.31.89.102:9000  -Dsonar.projectKey=${COMPONENT}
-        curl https://gitlab.com/thecloudcareers/opensource/-/raw/master/lab-tools/sonar-scanner/quality-gate > sonar-quality-gate.sh
-        sonar-quality-gate.sh ${SONARCRED_USR} ${SONARCRED_PSW} ${SONATURL} ${COMPONENT}
-        echo Sonar checks done
-
     '''
 }
 
@@ -26,7 +14,6 @@ def call (COMPONENT) {
         enviornment {
             SONARCRED = credentials('SONARCRED')
             SONATURL = "172.31.89.102"
-
         }
         stages {
 
@@ -47,7 +34,7 @@ def call (COMPONENT) {
             stage('Sonar Checks') {
                 steps {
                     script {
-                        sonarChecks()
+                        common.sonarChecks()
                     }                     // calling the sonar checks function from line11
                 }
             }
