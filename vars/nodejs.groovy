@@ -8,6 +8,15 @@ def lintChecks(){
     '''
 }
 
+def sonarChecks(){
+    sh '''
+        echo Sonar Checks starts
+        sonar-scanner -Dsonar.sources=. -Dsonar.login=0d48104d8af75f393eec3c505f8f0cb743363849 -Dsonar.host.url=http://172.31.89.102:9000  -Dsonar.projectKey=${COMPONENT}
+        echo Sonar checks done
+
+    '''
+}
+
 
 def call (COMPONENT) {
     pipeline {
@@ -26,9 +35,18 @@ def call (COMPONENT) {
                 steps {
                         sh "npm install"
                 }
-            }                                              
+            }
+
+            stage('Sonar Checks') {
+                steps {
+                    script {
+                        sonarChecks()
+                    }                     // calling the sonar checks function from line11
+                }
+            }                                                          
+        
         }
-    }
+    }  
 }
 
 
