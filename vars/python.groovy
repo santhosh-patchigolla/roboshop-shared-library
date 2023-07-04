@@ -31,7 +31,13 @@ def call (COMPONENT) {
                         common.sonarChecks()
                     }
                 }
-            }                                              
+            }
+
+            stage('Testing') {
+                steps {
+                        sh "echo Testing"
+                }
+            }                                                          
 
         }
     }
