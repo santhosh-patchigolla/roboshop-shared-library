@@ -47,7 +47,7 @@ def call (COMPONENT) {
 
             stage('Testing') {
                 steps {
-                        sh "Testing in progress"
+                        sh "echo Testing in progress"
                 }
             }                                                                      
         
