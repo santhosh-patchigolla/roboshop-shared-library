@@ -12,8 +12,11 @@ def lintChecks(){
 def call (COMPONENT) {
     pipeline {
         agent { label 'work-station' }
+        enviornment {
+            SONARCRED = credentials('SONARCRED')
+            SONATURL = "172.31.89.102"
+        }        
         stages {
-
             stage ('Lint Check') {                     
                 steps {
                     script {
@@ -22,9 +25,11 @@ def call (COMPONENT) {
                 }    
             }
 
-            stage('Code Compile') {
+            stage('Sonar Checks') {
                 steps {
-                        sh "npm install"
+                    script {
+                        common.sonarChecks()
+                    }
                 }
             }                                              
 

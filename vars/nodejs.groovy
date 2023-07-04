@@ -35,7 +35,7 @@ def call (COMPONENT) {
                 steps {
                     script {
                         common.sonarChecks()
-                    }                     // calling the sonar checks function from line11
+                    }                                    // calling the sonar checks function from line11
                 }
             }
 
