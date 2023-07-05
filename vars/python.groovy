@@ -12,7 +12,7 @@ def lintChecks(){
 def call (COMPONENT) {
     pipeline {
         agent { label 'work-station' }
-        enviornment {
+        environment {  
             SONARCRED = credentials('SONARCRED')
             SONATURL = "172.31.89.102"
         }        
