@@ -26,7 +26,10 @@ def call (COMPONENT) {
 
             stage('Code Quality') {
                 steps {
-                        sh "echo Code Quality Analysis"
+                        script {
+                            env.ARGS="-Dsonar.sources=."
+                            common.sonarChecks()
+                        }
                 }
             }                                              
 
