@@ -67,18 +67,24 @@ def call (COMPONENT) {
             stage('Prepare Artifact') {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
-                        sh "echo prepare Artifacts ${COMPONENT}"
-                        sh "npm install"
-                        sh "zip ${COMPONENT}.zip node_modules server.js"
+                    sh '''
+                        echo prepare Artifacts ${COMPONENT}
+                        npm install
+                        zip ${COMPONENT}-${TAG_NAME}.zip node_modules server.js
+                       
+                       '''  
                 }
             }
 
             stage('Upload Artifacts') {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
-                    sh "echo uploading artifacts to Nexus"
-                    sh "curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip"
-                    sh "echo uploded the ${COMPONENT} artifact"
+                    sh '''
+                        echo uploading artifacts to Nexus
+                        curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip
+                        echo Uploading ${COMPONENT} Artifacts To Nexus is done
+
+                        '''  
                 }    
             }                                                                                          
         }
