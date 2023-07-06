@@ -64,12 +64,14 @@ def call (COMPONENT) {
                 }
             }
             stage('Prepare Artifact') {
+                when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
                         sh "echo prepare Artifacts"
                 }
             }
-            
+
             stage('Upload the Artifacts') {
+                when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
                     sh "echo uploading the artifacts to Nexus"
                 }
