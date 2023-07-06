@@ -62,7 +62,18 @@ def call (COMPONENT) {
                     }
 
                 }
-            }                                                                      
+            }
+            stage('Prepare Artifact') {
+                steps {
+                        sh "echo prepare Artifacts"
+                }
+            }
+            
+            stage('Upload the Artifacts') {
+                steps {
+                    sh "echo uploading the artifacts to Nexus"
+                }
+            }                                                                                  
         
         }
     }  
