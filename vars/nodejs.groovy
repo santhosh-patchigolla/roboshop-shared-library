@@ -15,6 +15,8 @@ def call (COMPONENT) {
             SONARCRED = credentials('SONARCRED')
             NEXUS = credentials('NEXUS')             // given the credential ovet the Jenkins pipeline
             SONARURL = "172.31.89.102"
+            NEXUSURL = "172.31.93.234"
+            
         }
         stages {
 
@@ -40,7 +42,6 @@ def call (COMPONENT) {
                     }                                // calling the sonar checks function from line11
                 }
             }
-
             stage('TestCases') {
                 parallel {
                     stage ('Unit Testing') {
@@ -61,9 +62,18 @@ def call (COMPONENT) {
                             sh "echo Functional testing done"
                         }
                     }
-
                 }
             }
+
+            stage('Verify the artifact version') {
+                when { expression { env.TAG_NAME != null } }        
+                steps {
+                    script {
+                        env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -s -L http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME}')
+                    }   
+                }
+            }
+
             stage('Prepare Artifact') {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
