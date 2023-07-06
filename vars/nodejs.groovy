@@ -70,7 +70,8 @@ def call (COMPONENT) {
                 steps {
                     script {
                         env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -s -L http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME}')
-                    }   
+                    }
+                    sh "echo Upload Status Is ${UPLOAD_STATUS}" 
                 }
             }
 
