@@ -13,6 +13,7 @@ def call (COMPONENT) {
         agent { label 'work-station' }
         environment {
             SONARCRED = credentials('SONARCRED')
+            NEXUS = credentials('NEXUS')             // given the credential ovet the Jenkins pipeline
             SONARURL = "172.31.89.102"
         }
         stages {
@@ -66,7 +67,9 @@ def call (COMPONENT) {
             stage('Prepare Artifact') {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
-                        sh "echo prepare Artifacts"
+                        sh "echo prepare Artifacts ${COMPONENT}"
+                        sh "npm install"
+                        sh "zip ${COMPONENT}.zip node_modules server.js"
                 }
             }
 
@@ -74,14 +77,16 @@ def call (COMPONENT) {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
                     sh "echo uploading the artifacts to Nexus"
-                }
-            }                                                                                  
-        
+                    sh "curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME} http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip"
+                }   sh "echo uploded the ${COMPONENT} artifact" 
+            }                                                                                          
         }
     }  
 }
 
 
+
+// this is how you will pass the user name and password which is created in the Jenkins credential...NEXUS Is given name ID in the Jenkins and USR and PSW are the synatax to pass the credentials...
 
 
 
