@@ -40,9 +40,27 @@ def call (COMPONENT) {
                 }
             }
 
-            stage('Testing') {
-                steps {
-                        sh "echo Testing in progress"
+            stage('TestCases') {
+                parallel {
+                    stage ('Unit Testing') {
+                        steps {
+                            sh "echo unit testing started"
+                            sh "echo unit testing done"
+                        }
+                    }
+                    stage ('Integration Testing') {
+                        steps {
+                            sh "echo Integration testing started"
+                            sh "echo Integration testing done"
+                        }
+                    }
+                    stage ('Funtional Testing') {
+                        steps {
+                            sh "echo Functional testing started"
+                            sh "echo Functional testing done"
+                        }
+                    }
+                                                             
                 }
             }                                                                      
         
