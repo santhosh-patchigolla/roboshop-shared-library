@@ -73,11 +73,11 @@ def call (COMPONENT) {
                 }
             }
 
-            stage('Upload the Artifacts') {
+            stage('Upload Artifacts') {
                 when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
                 steps {
-                    sh "echo uploading the artifacts to Nexus"
-                    sh "curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME} http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip"
+                    sh "echo uploading artifacts to Nexus"
+                    sh "curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip"
                 }   sh "echo uploded the ${COMPONENT} artifact" 
             }                                                                                          
         }
