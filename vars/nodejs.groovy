@@ -1,4 +1,4 @@
-def lintChecks(){
+def lintChecks() {
     sh '''
         echo Installing JSLint for ${COMPONENT}
         npm i jslint
@@ -78,7 +78,8 @@ def call (COMPONENT) {
                 steps {
                     sh "echo uploading artifacts to Nexus"
                     sh "curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip"
-                }   sh "echo uploded the ${COMPONENT} artifact" 
+                    sh "echo uploded the ${COMPONENT} artifact"
+                }    
             }                                                                                          
         }
     }  
