@@ -76,7 +76,10 @@ def call (COMPONENT) {
             }
 
             stage('Prepare Artifact') {
-                when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
+                when { 
+                    expression { env.TAG_NAME != null }             // when a tag is deducted then it will trigger
+                    expression { env.UPLOAD_STATUS == "" }                                    
+                }      
                 steps {
                     sh '''
                         echo prepare Artifacts ${COMPONENT}
