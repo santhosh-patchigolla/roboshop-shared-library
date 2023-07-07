@@ -40,7 +40,7 @@ def sonarChecks(){
        sh "echo Sonar checks done"
 }
 
-// def sonarChecks(){
+// def sonarChecks(){                            // related to shared library
 //        sh "echo Sonar Checks starts"
 //        sh "echo Sonar checks done"
 // }
