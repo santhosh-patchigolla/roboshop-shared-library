@@ -69,7 +69,7 @@ def call (COMPONENT) {
                 when { expression { env.TAG_NAME != null } }        
                 steps {
                     script {
-                        env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -s -L http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME}' || true )    // true is used for the If the first statement is failed will treat as true
+                        env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -L -s  http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME} || true' )    // true is used for the If the first statement is failed will treat as true
                         print UPLOAD_STATUS                     
                     }
                 }
