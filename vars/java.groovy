@@ -5,7 +5,7 @@ def call () {
 }
 
 
-// def lintChecks(){
+// def lintChecks(){       // removed all the lines to run the pun the pipelie through the 
 //     sh '''
 //         echo doing lintChecks for ${COMPONENT}
 //         mvn checkstyle:check || true       
