@@ -18,7 +18,7 @@ def lintChecks(){
         }
         else if(env.APP_TYPE == "java") {
         sh '''
-            echo lint checks start for ${COMPONENT} using mvn
+            echo lint checks started for ${COMPONENT} using mvn
             # mvn checkstyle:check
             echo lint checks completed for ${COMPONENT}  
         ''' 
