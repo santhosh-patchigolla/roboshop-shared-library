@@ -5,7 +5,7 @@ def call () {
 }
 
 
-   // uncommited for doing due to scripted pipeline
+   // uncommited for doing due to scripted pipeline.
 // def call (COMPONENT) {
 //     pipeline {
 //         agent { label 'work-station' }
