@@ -1,48 +1,55 @@
-def lintChecks(){
-    sh '''
-        echo Installing PYLint for ${COMPONENT}
-        pip install pylint
-        echo Installing lint checks done for the ${COMPONENT}
-
-    '''
-}
-
-
-
-def call (COMPONENT) {
-    pipeline {
-        agent { label 'work-station' }
-        environment {  
-            SONARCRED = credentials('SONARCRED')
-            SONATURL = "172.31.89.102"
-        }        
-        stages {
-            stage ('Lint Check') {                     
-                steps {
-                    script {
-                        lintChecks()
-                    }
-                }    
-            }
-
-            stage('Sonar Checks') {
-                steps {
-                    script {
-                        env.ARGS="-Dsonar.sources=."
-                        common.sonarChecks()
-                    }
-                }
-            }
-
-            stage('Testing') {
-                steps {
-                        sh "echo Testing"
-                }
-            }                                                          
-
-        }
+def call () {
+    node {
+        common.lintChcecks()
     }
 }
+
+
+// def lintChecks(){
+//     sh '''
+//         echo Installing PYLint for ${COMPONENT}
+//         pip install pylint
+//         echo Installing lint checks done for the ${COMPONENT}
+
+//     '''
+// }
+
+
+
+// def call (COMPONENT) {
+//     pipeline {
+//         agent { label 'work-station' }
+//         environment {  
+//             SONARCRED = credentials('SONARCRED')
+//             SONATURL = "172.31.89.102"
+//         }        
+//         stages {
+//             stage ('Lint Check') {                     
+//                 steps {
+//                     script {
+//                         lintChecks()
+//                     }
+//                 }    
+//             }
+
+//             stage('Sonar Checks') {
+//                 steps {
+//                     script {
+//                         env.ARGS="-Dsonar.sources=."
+//                         common.sonarChecks()
+//                     }
+//                 }
+//             }
+
+//             stage('Testing') {
+//                 steps {
+//                         sh "echo Testing"
+//                 }
+//             }                                                          
+
+//         }
+//     }
+// }
 
 
 
