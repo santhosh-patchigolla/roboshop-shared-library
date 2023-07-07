@@ -5,7 +5,7 @@ def call () {
 }
 
 
-// def lintChecks(){
+// def lintChecks(){                // un comment the below lines
 //     sh '''
 //         echo Installing PYLint for ${COMPONENT}
 //         pip install pylint
