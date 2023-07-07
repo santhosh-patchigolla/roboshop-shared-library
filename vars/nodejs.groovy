@@ -91,7 +91,10 @@ def call (COMPONENT) {
             }
 
             stage('Upload Artifacts') {
-                when { expression { env.TAG_NAME != null } }        // when a tag is deducted then it will trigger
+                when { 
+                    expression { env.TAG_NAME != null }
+                    expression { env.UPLOAD_STATUS == "" }                   
+                }        
                 steps {
                     sh '''
                         echo uploading artifacts to Nexus
