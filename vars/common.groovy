@@ -69,6 +69,46 @@ def testCases() {
 
 
 
+def artifacts() {
+        
+        stage('Validate Artifact Version') {
+            env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -L -s  http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME} || true' )
+            print UPLOAD_STATUS
+        }                    
+                
+        if(env.UPLOAD_STATUS == "") {
+                stage('Prepare Artifacts') {
+                        if(env.APP_TYPE == "nodejs"){
+                                sh '''
+                                        echo Preparing Artifacts for ${COMPONENT}
+                                        npm install
+                                        zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js                        
+                                '''
+                        }
+                        else if(env.APP_TYPE == "python"){
+                                sh '''
+                                        echo Preparing Artifacts for ${COMPONENT}
+                                        zip -r ${COMPONENT}-${TAG_NAME}.zip *.py *.int  requirements.txt                     
+                                '''
+                        }
+                        else if(env.APP_TYPE == "java"){
+                                sh '''
+                                        echo Preparing Artifacts for ${COMPONENT}
+                                        mvn clean package
+                                        mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar
+                                        zip -r ${COMPONENT}-${TAG_NAME}.zip  ${COMPONENT}.jar          
+                                '''
+                        }
+                        else {
+                                sh '''
+                                        echo Preparing Artifacts for ${COMPONENT}
+                                        cd static
+                                        zip -r ../${COMPONENT}-${TAG_NAME}.zip *                  
+                                '''
+                        }
+                }
+
+
 
 // def sonarChecks(){                            // related to shared library.
 //        sh "echo Sonar Checks starts"
