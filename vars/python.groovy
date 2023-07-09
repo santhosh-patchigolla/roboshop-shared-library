@@ -1,11 +1,14 @@
 def call () {
     node {
-        common.lintChcecks()
+        env.APP_TYPE="python"
+        common.lintChecks()
         env.ARGS="-Dsonar.sources=."
         common.sonarChecks()
+        common.testCases()
     }
 }
 
+        
 
 // def lintChecks(){                // un comment the below lines
 //     sh '''
