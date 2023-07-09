@@ -43,6 +43,33 @@ def sonarChecks(){
        }
 }
 
+// Below is the way for the scripted pipeline for parallel stages
+
+
+def testCases() {
+        stage('Test Cases') {
+                def stages = [:]
+
+                stages["Unit Testing"] = {
+                        echo "Unit Testing has Started for ${COMPONENT}"
+                        echo "Unit Testing is Completed for ${COMPONENT}"
+                }
+                stages["Integration Testing"] = {
+                        echo "Integration Testing has Started for ${COMPONENT}"
+                        echo "Integration Testing is  Completed for ${COMPONENT}"
+                }
+                stages["Functional Testing"] = {
+                        echo "Functional Testing has Started for ${COMPONENT}"
+                        echo "Functional Testing is Completed for ${COMPONENT}"
+                }
+
+                parallel(stages)
+        }                        
+}
+
+
+
+
 // def sonarChecks(){                            // related to shared library.
 //        sh "echo Sonar Checks starts"
 //        sh "echo Sonar checks done"
