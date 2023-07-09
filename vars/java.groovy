@@ -1,10 +1,13 @@
 def call () {
     node {
+        env.APP_TYPE="java"
         common.lintChcecks()
         env.ARGS="-Dsonar.java.binaries=target/"
         common.sonarChecks()
+        common.testCases()
     }
 }
+
 
 
 // def lintChecks(){       // removed all the lines to run the pun the pipelie through the 
