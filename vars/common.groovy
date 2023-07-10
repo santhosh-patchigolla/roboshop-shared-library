@@ -115,11 +115,11 @@ def artifacts() {                  // in groov we need to declare the fucntion i
                                 sh "echo Uploading ${COMPONENT} Artifacts To Nexus is Completed"                   
                                 
                         }                
-                }       
+                }                       
         }
 }
 
 // def sonarChecks(){                            // related to shared library.
 //        sh "echo Sonar Checks starts"
 //        sh "echo Sonar checks done"
-// }........
+// }...........No chanfwa
