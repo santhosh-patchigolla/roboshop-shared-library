@@ -5,7 +5,7 @@ def call () {
         env.ARGS="-Dsonar.sources=."
         common.sonarChecks()
         common.testCases()
-        common.artifacts()
+        common.artifacts()                              // calling the function from common.groovy
     }
 }
 

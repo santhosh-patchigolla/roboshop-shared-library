@@ -69,7 +69,7 @@ def testCases() {
 
 
 
-def artifacts() {    
+def artifacts() {                  // in groov we need to declare the fucntion in the "def"
 
         stage('Validate Artifact Version') {
             env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -L -s  http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME} || true' )   
