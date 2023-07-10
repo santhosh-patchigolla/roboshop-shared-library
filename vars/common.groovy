@@ -69,10 +69,10 @@ def testCases() {
 
 
 
-def artifacts() {
-        
+def artifacts() {    
+
         stage('Validate Artifact Version') {
-            env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -L -s  http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME} || true' )
+            env.UPLOAD_STATUS=sh (returnStdout: true, script: 'curl -L -s  http://${NEXUSURL}:8081/service/rest/repository/browse/${COMPONENT}/ | grep ${COMPONENT}-${TAG_NAME} || true' )   
             print UPLOAD_STATUS
         }                    
                 
@@ -107,10 +107,19 @@ def artifacts() {
                                 '''
                         }
                 }
-
-
+                
+                stage('Upload Artifacts') {
+                        withCredentials([usernamePassword(credentialsId: 'NEXUS', passwordVariable: 'NEXUS_PSW', usernameVariable: 'NEXUS_USR')]) {
+                                sh "echo Uploading ${COMPONENT} Artifacts To Nexus"
+                                sh "curl -f -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}-${TAG_NAME}.zip  http://172.31.93.234:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip || true"
+                                sh "echo Uploading ${COMPONENT} Artifacts To Nexus is Completed"                   
+                                
+                        }                
+                }
+        }
+}
 
 // def sonarChecks(){                            // related to shared library.
 //        sh "echo Sonar Checks starts"
 //        sh "echo Sonar checks done"
-// }
+// }...
