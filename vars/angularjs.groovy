@@ -4,7 +4,10 @@ def call () {
         common.lintChecks()
         env.ARGS="-Dsonar.sources=."  
         common.sonarChecks() 
-        common.testCases()     
+        common.testCases() 
+        if(env.TAG_NAME != null) {
+            common.artifacts()
+        }            
     }
 }
 
