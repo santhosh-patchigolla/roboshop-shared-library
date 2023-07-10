@@ -115,7 +115,7 @@ def artifacts() {                  // in groov we need to declare the fucntion i
                                 sh "echo Uploading ${COMPONENT} Artifacts To Nexus is Completed"                   
                                 
                         }                
-                }
+                }       
         }
 }
 
