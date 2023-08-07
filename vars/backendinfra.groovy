@@ -3,7 +3,6 @@ def call() {
             parameters([
                 choice(choices: 'dev\nprod', description: "Select your environment", name: "ENV"),
                 choice(choices: 'apply\ndestroy', description: "Chose an action", name: "ACTION"),
-                string(choices: 'APP_VERSION', description: "Enter your backend version", name: "APP_VERSION")
             ]),
         ])
     node {
@@ -11,26 +10,19 @@ def call() {
             git branch: 'main', url: "https://github.com/santhosh-patchigolla/${REPONAME}.git"
             
             stage('terraform init') {
-                sh ''' 
-                    cd ${TFDIR}
-                    ls -ltr
-                    terrafile -f env-${ENV}/Terrafile
-                    terraform init -backend-config=env-${ENV}/${ENV}-backend.tfvars  
-                '''       
+                sh "cd ${TFDIR}"
+                sh "terrafile -f env-${ENV}/Terrafile"
+                sh  "terraform init -backend-config=env-${ENV}/${ENV}-backend.tfvars"  
             }
 
             stage('terraform plan') {
-                sh '''
-                    cd ${TFDIR}
-                    terraform plan -var-file=env-${ENV}/${ENV}.tfvars -var APP_VERSION=${APP_VERSION}
-                ''' 
+                sh   "cd ${TFDIR}"
+                sh    "terraform plan -var-file=env-${ENV}/${ENV}.tfvars"
             }
 
             stage('Terraform Action') {
-                sh '''
-                    cd ${TFDIR}
-                    terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars -var APP_VERSION=${APP_VERSION}
-                '''
+                sh "cd ${TFDIR}"
+                sh   "terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars"
                 }
             }
         }
