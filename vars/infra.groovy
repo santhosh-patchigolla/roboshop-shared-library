@@ -21,6 +21,7 @@ def call() {
             }
 
             stage('Terraform Action') {
+                sh "cd ${REPONAME}"
                 sh "terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars"
                 }
             }
