@@ -4,7 +4,7 @@ def call() {
                 choice(choices: 'dev\nprod', description: "Select your environment", name: "ENV"),
                 choice(choices: 'apply\ndestroy', description: "Chose an action", name: "ACTION")
             ]),
-        ])
+        ])   
     node {
         ansiColor('xterm') {
             git branch: 'main', url: "https://github.com/santhosh-patchigolla/${REPONAME}.git"
