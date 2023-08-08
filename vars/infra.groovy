@@ -10,13 +10,13 @@ def call() {
             git branch: 'main', url: "https://github.com/santhosh-patchigolla/${REPONAME}.git"
             
             stage('terraform init') {
-                sh "cd ${TFDIR}"
+                sh "cd ${REPONAME}"
                 sh "terrafile -f env-${ENV}/Terrafile"
                 sh "terraform init -backend-config=env-${ENV}/${ENV}-backend.tfvars"            
             }
 
             stage('terraform plan') {
-                sh "cd ${TFDIR}"
+                sh "cd ${REPONAME}"
                 sh "terraform plan -var-file=env-${ENV}/${ENV}.tfvars"
             }
 
