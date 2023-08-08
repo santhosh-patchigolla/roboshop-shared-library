@@ -1,8 +1,8 @@
 def call() {
     properties([
             parameters([
-                choice(choices: 'dev\nprod', description: "Select environment", name: "ENV"),
-                choice(choices: 'apply\ndestroy', description: "Chose the action", name: "ACTION")
+                choice(choices: 'dev\nprod', description: "Select your environment", name: "ENV"),
+                choice(choices: 'apply\ndestroy', description: "Chose an action", name: "ACTION")
             ]),
         ])
     node {
@@ -21,7 +21,6 @@ def call() {
             }
 
             stage('Terraform Action') {
-                sh "cd ${TFDIR}"
                 sh "terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars"
                 }
             }
