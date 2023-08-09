@@ -25,7 +25,7 @@ def call() {
                 ''' 
             }
 
-            stage('Terraform Action') {
+            stage('Terraform Action') { 
                 sh '''
                     cd ${TFDIR}
                     terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars -var APP_VERSION=${APP_VERSION}
